@@ -1,37 +1,27 @@
 import Todo from "../Todo/Todo"
-import ToDoContext from "../../context/ToDoContext"
-import { useContext } from "react"
-import ToDoDispatch from "../../context/ToDoDispatch"
-function TodoList(){
-    const {list}=useContext(ToDoContext)
-    const {dispatch}=useContext(ToDoDispatch)
-    function onFinished(todo,isFinished){
+function TodoList({list,updateList}){
+    
         
-        dispatch({type:'finishTodo',payload:{todo,isFinished:isFinished}})      
-    }
-
-    function onDelete(todo){
-        dispatch({type:'delete_todo',payload:{todo}})       
-    }
-
-
-    function onEdit(todo,todoText){
-        dispatch({type:'edit_todo',payload:{todo,todoText}})       
-    }
-
-    return(
+    return (
         <div>
-            {list.length>0 && 
-            list.map(todo=><Todo 
-                    key={todo.id} 
-                    isFinished={todo.finished} 
-                    onEdit={(todoText)=>onEdit(todo,todoText)}
-                    id={todo.id} 
-                    todoData={todo.todoData}
-                    changeFinished={(isFinished)=>onFinished(todo,isFinished)}
-                    onDelete={()=>onDelete(todo)}
-                    />)}
+            {list.length>0 && list.map((todo)=><Todo 
+                        key={todo.id} 
+                        id={todo.id} 
+                        todoData={todo.todoData} 
+                        isFinished={todo.finished}
+                        // updating the check and uncheck opertion
+                        changeFinished={(isFinished)=>{
+                            const updatedList=list.map(t=>{
+                                if(t.id==todo.id){
+                                    todo.finished=isFinished;
+                                }
+                                return t;
+                            })
+                            updateList(updatedList)
+                        }}
+                        />)}
         </div>
+        
     )
 }
 export default TodoList 
