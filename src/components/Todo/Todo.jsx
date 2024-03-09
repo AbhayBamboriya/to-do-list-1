@@ -3,7 +3,7 @@ import { useState } from "react"
 function Todo({todoData,isFinished,changeFinished,onDelete,onEdit}){
     const[finished,setFinised]=useState(isFinished)
     const[Isediting,setIsEditing]=useState(false) //initally not editing
-    const[editTet,setEditText]=useState(todoData)
+    const[editTet,setEditText]=useState(todoData)   //initially default value when click on deit will be the same
     return(
         <>
             <input type="checkbox" checked={finished} onChange={(e)=>{

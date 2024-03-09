@@ -10,7 +10,8 @@ function App() {
   
   ])
   return (
-    <ToDoContext.Provider value={{list,setList}}>
+    // list and set list will be provided because it is passed in value 
+    <ToDoContext.Provider value={{list,setList}}> 
       <AddTodo updateList={(todo)=>setList([
               ...list,{id:list.length+1,todoData:todo,finished:false}])}/>
       <TodoList/>
